@@ -25,14 +25,31 @@ check_python() {
 
 check_python
 
+# Initialize conda
+eval "$(conda shell.bash hook)"
+
 if [ ! -d "$VENV_DIR" ]; then
-    "$PYTHON_CMD" -m venv "$VENV_DIR"
-    echo "Virtual environment '$VENV_DIR' created."
-    # shellcheck disable=SC1091
-    source "$VENV_DIR/bin/activate"
+
+    # Create the Conda environment with Python 3.11
+    conda create -y -p "$VENV_DIR" python=3.11
+
+    # Activate the environment
+    conda activate "$VENV_DIR"
+
+    # Print message indicating activation
+    echo "Conda environment '$VENV_DIR' with Python 3.11 has been created and activated."
+
+    # Optional: Install additional packages if needed
+    # conda install -y package1 package2 ...
+
     "$PYTHON_CMD" -m pip install --upgrade pip > /dev/null
+    conda install -y mpi4py
+
     "$PYTHON_CMD" -m pip install -r "$SCRIPT_DIR/requirements.txt" --no-cache-dir > /dev/null
 else
-    # shellcheck disable=SC1091
-    source "$VENV_DIR/bin/activate"
+    # Activate the environment
+    conda activate "$VENV_DIR"
+
+    # Print message indicating activation
+    echo "Conda environment '$VENV_DIR' with Python 3.11 has been created and activated."
 fi
