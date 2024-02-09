@@ -128,4 +128,31 @@ else
     source "$VENV_DIR/bin/activate"
 fi
 
+# Initialize conda
+eval "$(conda shell.bash hook)"
+
+if [ ! -d "$VENV_DIR" ]; then
+
+    # Create the Conda environment with Python 3.11
+    conda create -y -p "$VENV_DIR" python=3.11
+
+    # Activate the environment
+    conda activate "$VENV_DIR"
+
+    # Print message indicating activation
+    echo "Conda environment '$VENV_DIR' with Python 3.11 has been created and activated."
+
+    # Optional: Install additional packages if needed
+    # conda install -y package1 package2 ...
+
+    pip install --upgrade pip > /dev/null
+    install_device_specific_vllm "$DEVICE"
+else
+    # Activate the environment
+    conda activate "$VENV_DIR"
+
+    # Print message indicating activation
+    echo "Conda environment '$VENV_DIR' with Python 3.11 has been created and activated."
+fi
+
 download_awq_weights

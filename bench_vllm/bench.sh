@@ -96,7 +96,10 @@ run_benchmarks() {
     local MODELS_DIR="$6"
 
     # shellcheck disable=SC1091
-    source "$SCRIPT_DIR/venv/bin/activate"
+    # Initialize conda
+    eval "$(conda shell.bash hook)"
+    # Activate the environment
+    conda activate "$VENV_DIR"
     "$PYTHON_CMD" "$SCRIPT_DIR"/bench.py \
         --prompt "$PROMPT" \
         --repetitions "$REPETITIONS" \
