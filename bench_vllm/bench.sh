@@ -99,7 +99,7 @@ run_benchmarks() {
     # Initialize conda
     eval "$(conda shell.bash hook)"
     # Activate the environment
-    conda activate "$VENV_DIR"
+    conda activate "$SCRIPT_DIR"/venv
     "$PYTHON_CMD" "$SCRIPT_DIR"/bench.py \
         --prompt "$PROMPT" \
         --repetitions "$REPETITIONS" \
