@@ -116,18 +116,6 @@ VENV_DIR="$SCRIPT_DIR/venv"
 
 # Build and activate the virtual environment.
 
-if [ ! -d "$VENV_DIR" ]; then
-    "$PYTHON_CMD" -m venv "$VENV_DIR"
-    echo "Virtual environment '$VENV_DIR' created."
-    # shellcheck disable=SC1091
-    source "$VENV_DIR/bin/activate"
-    pip install --upgrade pip > /dev/null
-    install_device_specific_vllm "$DEVICE"
-else
-    # shellcheck disable=SC1091
-    source "$VENV_DIR/bin/activate"
-fi
-
 # Initialize conda
 eval "$(conda shell.bash hook)"
 
