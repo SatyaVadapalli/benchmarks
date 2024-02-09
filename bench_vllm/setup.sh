@@ -8,6 +8,8 @@
 
 set -euo pipefail
 
+AWQ_WEIGHTS_FOLDER="/home/ec2-user/efs/awq_weights"
+
 check_python() {
     if command -v python &> /dev/null; then
         PYTHON_CMD="python"
